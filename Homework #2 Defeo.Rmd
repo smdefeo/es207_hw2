@@ -1,0 +1,153 @@
+---
+title: 'Homework #2 Defeo'
+author: "Shelby Defeo"
+date: "2/7/2022"
+output: html_document
+---
+
+
+```{r}
+#1. Create and print a new vector, `w` that is a subset of the first 4 elements of vector `v`, where `v <- c(8:19)`
+v <- c(8:19)
+v
+w <- c(v[1], v[2], v[3], v[4])
+w
+```
+
+```{r}
+#2. Create and print a new vector, `h` that is a subset of the middle 5 elements of vector `d`, where `d <- c(8:20)`
+d <- c(8:20)
+d
+length(d)
+h <- c(d[5:9])
+h
+```
+
+```{r}
+#3. What is the length of vector `w` from above?
+length(w)
+```
+4. What are the 3 properties of a vector, other than its contents?
+3 properties of vectors are type, length, and attributes.
+
+5. Can you predict the output of the following uses of c()? c(3,FALSE) c("a",1) c(4L,2)
+I predict that c(3,FALSE) would have an output of double. For c("a",1) the output would be a character. For c(4L,2) it would be a double.
+
+6. What are the 4 types of common atomic vectors? What are the 2 rare types?
+The 4 types of common atomic vectors are character, integer, logical, and numeric. The 2 rare types are complex and raw.
+
+7. Why is `1=="1"` true? Why is `-1 < FALSE` true? Why is `"one< 2 ` false?
+1=="1" is true because 1 is being coerced to the more flexible type of character that "1" is. -1 < FALSE is true because FALSE is coerced from a logical vector it becomes 0. "One" < 2 is false because in ACSII the character one comes after "2". These equations all have some aspect of coercion where one type is being coerced to another.
+
+8. Why is the default missing value `NA`, a logical vector? What's so special about logical vectors?
+When it comes to coercion, logical vectors are the ones that are coerced into other, more flexible types, and so you're not coercing the data you have into a type that no longer fits when using NA for missing values.
+
+```{r}
+#9. Provide the value of the last element in the result of the vector operation `d * 2` from the vectors defined above.
+d <- c(8:20)
+d
+length(d)
+ddouble <- d * 2
+ddouble[13]
+```
+
+```{r}
+#10. Create a vector `a` with a sequence of 11 elements in it ranging from 0.6 to 1.9. Create another, logical vector `b` that identifies which elements in `a` are *greater than or equal to* `1.1`. Print your results.
+a <- seq(from = 0.69, to = 1.9, length = 11)
+a
+b <- which(a > 1.1)
+b
+```
+
+```{r}
+#11. Set all elements in vector a from above to 2.0 if they are greater than or equal to 1.1.
+a <- seq(from = 0.69, to = 1.9, length = 11)
+a
+a[a >= 1.1] <- 2.0
+a
+```
+
+```{r}
+#12. Use str() to compare the results of using list() and c() on l and j for: l <-c(list(1,2),c(3,4)) and j=list(list(1,2),c(3,4))
+l <-c(list(1,2),c(3,4))
+str(l)
+j=list(list(1,2),c(3,4))
+str(j)
+# l generats a list containing 4 numbers that appear separately in the order they were listed, while j generates a list of 2 with numbers 1 and 2 and then a set of numbers. 
+```
+
+```{r}
+#13. Show what happens when you use unlist() on l and j.
+unlist(l)
+unlist(j)
+```
+14. If factors are essentially integers under the hood, why do we use them, and not just use integers (e.g., 1s and 2s instead of “male”, “female”)?
+Even though factors are essentially integers, we use them because they provide more information that just an integer. Factors are more descriptive than just integers, like hot, warm, and cold provide a lot more information than 1, 2, and 3.
+
+```{r}
+#15. Using table(), provide the frequency of no and yes in my.fac.
+my.fac <- factor(c("yes", "yes", "no", "yes", "yes", "yes"))
+my.fac
+table(my.fac)
+```
+
+
+
+
+```{r}
+#16. What does this R code below do? How are f1 and f2 different from f3?
+#This R code is changing the levels and order of the factor. In f1, the levels and the order are changed. In f2, the order is changed but the levels stay the same. In f3, the levels are changed but the order stays the same. In f1 and f2, the order is being changed while it is not being changed in f3.
+f1 <- factor(letters)
+levels(f1) <-rev(levels(f1))
+f2 <- rev(factor(letters))
+f3 <- factor(letters, levels=rev(letters))
+f1
+f2
+f3
+```
+
+17. If is.matrix(x) is TRUE, what will is.array(x) return?
+In this case, is.array(x) would also return true. According to the help tab, a matrix and a two dimensional array are the same thing.
+
+18. Why didn’t that work? Hint: read the errors
+Error in data.frame(kids = c("Jack", "Jill"), ages = c(12, 10, 11)) : 
+  arguments imply differing number of rows: 2, 3
+This didn't work because we didn't meet the vector length requirements. There are more ages then there are children.
+
+BONUS. What is a tibble? Why might it be better than a data frame? Why might it be worse?
+A tibble is a data frame, but it is a newer, leaner version of it. The benefits of a tibble is that it is newer and forces you to confront issues earlier on. They also are designed so that you don't overwhelm your console with large amounts of data. A downside is that it does less. There are things it will not change (which maybe you want it to!) and it may not work with older parts of R.
+
+19. What does as.matrix() do when applied to a data frame with columns of different types?
+When it is applied, the columns will be coerced into the same type following the normal hierarchy. In a case where there is only atomic columns and any non numeric, logical, or complex column, then it will use as.vector for factors and format to the columns without characters.
+
+```{r}
+#20. What if we don’t have the same variable name? Change the data frame variables names using names(d2) <- c("ages","kids"). Then, use the help documentation to merge d1 and d2. Print your results.
+d1 <- data.frame(names = c("Jack", "Jill", "John"), states = c("CA", "IL", "IL"))
+d2 <- data.frame(ages = c(10, 7, 12), names = c("Jill", "Jillian", "Jack"))
+names(d2) <- c("ages","kids")
+merge(x = d1, y = d2,   
+      by.x = "names", by.y = "kids", all = TRUE)
+```
+21. Can you have a data frame with 0 rows? What about 0 columns?
+You can create a data frame that has 0 rows or 0 columns. For 0 rows, you would start by creating a matrix that has no rows but does have columns. For 0 columns, you could define a data frame so that it is made up of empty vectors and then treat the character vectors not as factors, but as strings.
+
+```{r}
+#22. Plot a histogram of all the Sepal.Width values in the dataset iris that are less than or equal to 3.0.
+iris
+Less_Width <- subset(iris, Sepal.Width <= 3)
+Less_Width
+hist(Less_Width$Sepal.Width,prob=TRUE,xlim=c(1.5,3.5))
+```
+
+```{r}
+#23. Try using apply on ‘d’. What happens? Why?
+d <- data.frame(gender = c("M", "M", "F", "M", "F", "F"),
+        age=c(47, 59, 21, 32, 33, 24),
+        income=c(55000, 88000, 32450, 76500, 123000, 45650))
+d$over25 <- ifelse(d$age > 25, 1, 0)
+d
+apply(d, 2, max)
+#When we use apply, we get a maximum that is the maximum of each column, but not the maximum of all things across a row. This happens because the 2 in our code tells it to act on each column and the max is asking it to return the maximum for each column.
+```
+
+24. What are the general elements of a function? Which elements are not required?
