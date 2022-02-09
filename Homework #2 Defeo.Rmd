@@ -151,3 +151,215 @@ apply(d, 2, max)
 ```
 
 24. What are the general elements of a function? Which elements are not required?
+The general elements are a name, code, and argument. An argument is not required.
+
+25. How do you pass a value of an object from the local environment to the global environment (outside of a function)?
+To pass from the local environment to the global, you return an object using return().
+
+26. What is the name of the R function that can help you identify errors in your function?
+Debug() will help you identify errors.
+
+27. Aside from using the fucntion identified in 26. above, what is another way to troubleshoot your functions? Hint: we used this in our first function oddcount in homework 1.
+Besides using debug, we can use print() which we can use to print out parts of our function.
+
+28. What is the name of a function to write your own error messages when writing a function?.
+The functions to write your own error messages are stop() and stopifnot().
+
+29. Why do you want to keep your functions short?
+You want to keep your functions short for easier troubleshooting and more organized and readable code. It is important to have clean code that is easily testable and able to be updated, and keeping functions short helps do that.
+
+30. What are local versus global variables? Why do they matter when you write functions?
+Local variables are inside your function, while global variables are outside the function.It is important to know which variables we are calling (and are able to call). We use return() to pass an object from the local environment. Once we have done that we can use it in the global environment as well and are not limited to using it in our function.
+
+```{r}
+#31. What happens if you write the function as following in the code below and test it on wavelength = 0.02 m?
+wave_to_freq <- function(wave) {
+  #note wavelength needs to be in meters
+  freq <- (299792458/wave) #speed of light in m/s
+  freq
+}
+wave_to_freq(0.02)
+paste("A wavelength of 2 cm has a frequency of", wave_to_freq(0.02),"Hz"  )
+```
+```{r}
+#32. Using the new function wave_to_freq(), what happens if you assign the function wave_to_freq() to object x and call x?
+#I get an error that says "Error in 299792458/wave : non-numeric argument to binary operator". Our function was written for numbers to be evaluated, but the x we gave it was not a number. 
+#wave_to_freq <- function(wave) {
+  #note wavelength needs to be in meters
+  #freq <- (299792458/wave) #speed of light in m/s
+  #freq
+#}
+#x <- wave_to_freq
+#wave_to_freq(x)
+```
+
+```{r}
+#33. Write a function that converts nanometers (nm) to meters (m). Make sure to provide useful comments. Save the function as a .R script with a logical name (e.g., “nano_to_meter”) and push it to your es207_hw2 repo in GitHub.
+#This code is also available in my GitHub repo, but I wanted to include it here for completeness.
+converter <- function(nanometers) {  #converter is function name and nanometers is parameter
+  meters <- (nanometers/1000000000)  # dividing nanometer to get units of meters
+  meters       #printing the value of meters
+}      #the end of the function
+converter(5000000000) #using the function to convert from 5000000000 nanometers
+paste("5000000000 nanometers is equivalent to", converter(5000000000),"meters") #in a sentence
+```
+
+```{r}
+#34.Write a function that can take wavelength in micrometers as an input, and output the equivalent value in Giga Herz (GHz). (Hint: your function will essentially convert wavelenght (in units of micrometers) to frequency (in units of GHz). You may need to do some internet research to learn more about the relationship between wavelength and frequency (and the process for converting between the two).
+micro_to_gig <- function(micrometer) {  #micro_to_gig is function name and micrometers is parameter
+  GHz <- (299792.458 / micrometer)  #micrometer to GHz conversion
+  GHz       #printing the value of GHz
+}      #the end of the function
+micro_to_gig(10000) #using the function to convert from 10000 micrometers
+paste("10000 micrometers is equivalent to", micro_to_gig(10000),"GHz") #in a sentence
+```
+
+
+```{r}
+#35. Using the function you wrote above, what radar band (provide the letter) corresponds to a wavelength of 30,000 micrometers? (Hint you may need to do some internet research about the frequency of different radar bands).
+#The X band frequency corresponds to a wavelength of 30,000 micrometers.
+micro_to_gig <- function(micrometer) {  #micro_to_gig is function name and micrometers is parameter
+  GHz <- (299792.458 / micrometer)  #micrometer to GHz conversion
+  GHz       #printing the value of GHz
+}      #the end of the function
+micro_to_gig(30000) #using the function to convert from 30000 micrometers
+paste("30000 micrometers is equivalent to", micro_to_gig(30000),"GHz and is the frequency range of the X band") #in a sentence
+
+```
+
+
+```{r}
+#36. Write a for loop that calculates the square of the first 10 elements in the vector x, where x <- rnorm(40)
+x <- rnorm(40)
+for (n in x[1:10]) { print(n^2) }
+```
+
+```{r}
+#37. Write a while loop that prints the even numbers from 4 through 29.
+for(i in 4:29)
+  {
+    if(i %% 2 == 1) next
+    # Notice that "Even!" is never printed when i is odd, 
+    # because next skips past it.
+    print(i)
+  }
+```
+
+```{r}
+#38. Write a while loop that prints multiples of 10 from 100 to 190.
+for(i in 100:190)
+  {
+    if(i %% 10 != 0) next
+    print(i)
+}
+```
+
+```{r}
+#39. Create a 10 x 10 matrix of random numbers. Write a loop that replaces the 3rd row and 5th column of numbers with “ciao”.
+mymatrix <- matrix(runif(100), nrow = 10, ncol = 10)
+mymatrix
+
+
+if(mymatrix)
+  {nrow = 3 & ncol = 5
+  then
+  "ciao"
+      }
+mymatrix
+```
+
+40. What is a loop? Can you provide me with a real-life example from your own research where such a thing would be handy?.
+A loop is a chunk of code that repeats until it is told to stop.A loop automates a process that is multistep. I could see this being handy in my research when I need to evaluate if data is below the reporting limit and replace it. I could create a loop that says something like if the value reported is less than 0.001 then replace with 0.
+
+41. What does it mean to “grow” variables or datasets using a loop? Show an example of code that does this.
+Growing data in a loop is considered an inefficient way to do it. When we set up an empty vector and populate it through the loop without giving the ends of the vector, we are growing variables. It is faster if we are able to set up initially the vector to be the right length instead of trying to build it one by one as we go through the loop. An example of code is:
+bar = seq(1, 200000, by=2)
+bar.squared = NULL
+
+for (i in 1:length(bar) ) {
+bar.squared[i] = bar[i]^2
+}
+summary(bar.squared)
+
+42. In 500 words or less, discuss why you would want to write loops, why some people look down on them in R, what the suggested alternative is.
+You would want to write loops when you need to preform an operation multiple times. The recommendation is to write a loop if you must preform the operation 3 or more times. Using loops helps declutter your code and maintain organization. It also makes it easier to replicate and troubleshoot.People look down on loops in R because they can be slow, and there are usually more efficient ways to proceed.Vectorized functions, like the apply family, are considered the better option to loops. Because of how R is written, you are able to do operations on an entire vector. Doing this executes the much faster C code that R is written with so it is often recommendable to apply a command to a vector.Vectorization is therefore popular in R because of its increased speed and simplicity.
+
+```{r}
+#43. Use ‘lapply()’ and a function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset.
+mtcars
+
+mtcars_means=apply(mtcars,2,mean)
+
+
+mtcars_sdev=apply(mtcars,2,sd)
+
+
+mtcars_cov= mtcars_sdev / mtcars_means
+mtcars_cov
+
+```
+
+```{r}
+#44. The function below scales a vector so it falls in the range [0, 1]. How would you apply it to every column of a data frame? How would you apply it to every numeric column in a data frame?
+scale01 <- function (x) {
+  rng <-range(x, na.rm=TRUE)
+  (x-rng[1] / rng[2] - rng[1])
+}
+#To apply this to every column in a data frame, I would use the apply function.I would write something like: mtcars_scale = apply(mtcars,2,scale01).To apply this to every numeric column in a data frame, I would use sapply to create a subset that is only numeric. I would write something like this: mtcars_num = sapply(mtcars, is.numeric)
+
+```
+
+```{r}
+#45. Use both for loops and lapply() to fit linear models to the mtcars data frame using the formulas stored in this list:
+formulas <- list(
+  mpg ~ disp, 
+  mpg ~ I(1 / disp), 
+  mpg ~ disp + wt,
+  mpg ~ I(1 / disp) + wt
+)
+mtcars_lappy <- lapply(formulas, lm, data = mtcars)
+mtcars_lappy 
+#lapply method
+
+mtcars_loop <- vector("list", length(formulas))
+for (i in seq_along(formulas)){
+  mtcars_loop[[i]] <- lm(formulas[[i]], data = mtcars)
+}
+mtcars_loop
+#loop method
+```
+
+```{r}
+#46. What are the sys.time() calculations for the loop and lapply() solutions above?
+formulas <- list(
+  mpg ~ disp, 
+  mpg ~ I(1 / disp), 
+  mpg ~ disp + wt,
+  mpg ~ I(1 / disp) + wt
+)
+
+start_time1 <- Sys.time()
+mtcars_lappy <- lapply(formulas, lm, data = mtcars)
+end_time1 <- Sys.time()
+end_time1 - start_time1
+```
+
+```{r}
+#46. What are the sys.time() calculations for the loop and lapply() solutions above? (Continued)
+formulas <- list(
+  mpg ~ disp, 
+  mpg ~ I(1 / disp), 
+  mpg ~ disp + wt,
+  mpg ~ I(1 / disp) + wt
+)
+
+start_time2 <- Sys.time()
+mtcars_loop <- vector("list", length(formulas))
+for (i in seq_along(formulas)){
+  mtcars_loop[[i]] <- lm(formulas[[i]], data = mtcars)
+}
+end_time2 <- Sys.time()
+end_time2 - start_time2
+
+```
+The time difference for lapply is 0.1555839 secs while the loop is 0.168638 secs. The loop technically takes longer, but in a practical senses of time, they take the same amount.
