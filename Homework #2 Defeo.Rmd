@@ -259,13 +259,14 @@ for(i in 100:190)
 mymatrix <- matrix(runif(100), nrow = 10, ncol = 10)
 mymatrix
 
+for (i in 1:nrow(mymatrix)) {  
+  for (j in 1:ncol(mymatrix)) {  
+    if(i == 3 || j == 5) mymatrix[i, j] <- "ciao"  
+  }
+}
 
-if(mymatrix)
-  {nrow = 3 & ncol = 5
-  then
-  "ciao"
-      }
 mymatrix
+
 ```
 
 40. What is a loop? Can you provide me with a real-life example from your own research where such a thing would be handy?.
